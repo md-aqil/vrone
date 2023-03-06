@@ -7,6 +7,8 @@
     <title>VRWiz</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script> -->
+  <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
   </head>
   <body>
     <a-scene id="first">
@@ -68,6 +70,7 @@
         height="4"
         color="#7BC8A4"
       ></a-plane>
+      <a-box hoverable grabbable stretchable draggable droppable color="blue" position="0 1 -2" scale=".5 .5 .5"></a-box>
 
       <a-entity id="rig" movement-controls="constrainToNavMesh: true; fly: true;">
         <a-entity
@@ -78,9 +81,10 @@
         >
           <!-- <a-cursor visible="false"></a-cursor> -->
         </a-entity>
-        <a-entity id="left-con" oculus-touch-controls="hand: left"></a-entity>
-        <a-entity id="right-con" oculus-touch-controls="hand: right"></a-entity>
-        
+        <a-entity sphere-collider="objects: a-box" super-hands oculus-touch-controls hand-controls=""="hand: left"></a-entity>
+        <a-entity sphere-collider="objects: a-box" super-hands oculus-touch-controls hand-controls=""="hand: right"></a-entity>
+
+     
       </a-entity>
 
       
