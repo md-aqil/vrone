@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/super-hands/dist/super-hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-teleport-controls/dist/aframe-teleport-controls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-animation-component/dist/aframe-animation-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-haptics-component/dist/aframe-haptics-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene physics="debug:true" environment="preset:forest">
+      <a-entity camera position="0 1.6 0" oculus-go-controls></a-entity>
+      <a-entity super-hands>
+        <a-entity id="cube" geometry="primitive: box" material="color: red" position="0 1 -2" 
+                  dynamic-body grabbable></a-entity>
+      </a-entity>
+      
+      <a-entity id="left-hand" hand-controls="left" oculus-touch-controls="hand: left" 
+                animation-mixer="clip: point" haptics></a-entity>
+      <a-entity id="right-hand" hand-controls="right" oculus-touch-controls="hand: right" 
+                animation-mixer="clip: point" haptics></a-entity>
+      <a-entity id="teleport" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #left-hand"></a-entity>
+      <a-entity id="cameraRig" position="0 0 0"></a-entity>
+    </a-scene>
+  </body>
+</html>

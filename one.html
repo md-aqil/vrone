@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <title>COVID-19 USA VR</title>
+  
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+   <meta property="og:title" content="COVID-19 Deaths in the United States - VR" />
+   <meta property="og:type" content="text/html" />
+   <meta property="og:url" content="https://sars2-cov.glitch.me/" />
+   <meta property="fb:app_id" content="null" />
+   <meta property="og:description" content="A virtual reality that uses data from about-covid.net to visualize the number of deaths per day from COVID-19 in the United States." />
+   <meta property="og:image" content="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Ffb-thumb.PNG" />
+   
+   <meta name="author" content="l00kinggla55" />
+   <meta name="description" content="A virtual reality that uses data from about-covid.net to visualize the number of deaths per day from COVID-19 in the United States." />
+   <meta name="keywords" content="covid-19, covid, vr, virtual reality, vr, xr, extended reality, xr" />
+   
+  <title>COVID-19 Deaths in the United States - VR</title>
+  
+   <link rel="shortcut icon" href="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Ffavicon.ico?1595950427863" type="image/vnd.microsoft.icon">
+   <script src="https://cdn.jsdelivr.net/npm/aframe@1.0.4/dist/aframe-v1.0.4.js" integrity="sha256-/01hwf2eeGucz7dCJL8+TfE1mOGJ6OQ3UcmAiSnUmls=" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.0/dist/aframe-extras.min.js" integrity="sha256-rQxOwiZz2021Men8QRxUmlnb6wMJZWoFWZ0UMyMVYyQ=" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js" integrity="sha256-gNJF898AiKbrvX4TfMUh7swgjAU9yVdo3+NfIhLvWiM=" crossorigin="anonymous"></script>
+   <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+  
+   <script src="libs/utils.js"></script>
+   <script src="libs/teleport-controls.js"></script>
+   <script src="libs/instanced-mesh.js"></script>
+   <script src="/script.js"></script>
+</head>
+
+<body>
+   <a-scene 
+            vr-mode-ui="enabled: true"
+            renderder="antialias: true; foveationLevel: 3; highRefreshRate: false; sortObjects: false;"
+            covid-deaths-today 
+            background="color: #d8ecf1">
+     
+      <a-assets>
+         <!--models -->
+         <!--a-asset-item id="md-covid" src="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Ftinker.glb"></a-asset-item-->
+         <a-asset-item id="md-coffin" src="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Fobj-coffin.obj?v=1595970017152"></a-asset-item>
+         <a-asset-item id="md-hills" src="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Fobj-hills.obj?v=1595889077061"></a-asset-item>
+        
+          <!--textures -->
+         <img id="tx-hills" src="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Ftx-hills.jpg?v=1595889082708" crossorigin="anonymous" />
+         <img id="tx-preview" src="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Ffb-thumb.PNG?v=1595950324090" crossorigin="anonymous" />
+         <img id="tx-coffin" src="https://cdn.glitch.com/4a7ec634-ee88-4923-a0b3-ad9d1f8ea0b6%2Fcoffin_color_sm.jpg?v=1595970025030" crossorigin="anonymous" />
+        
+         <!--mixins -->
+         <a-mixin id="coffin" material="shader: flat; src: #tx-coffin" obj-model="obj: #md-coffin" position="0 0 0" scale="1 1 1" ></a-mixin>
+         <a-mixin id="grass" material="color: #aabb0f"></a-mixin>
+         <a-mixin id="ground" geometry="primitive: plane; width: 3; height: 3" rotation="-90 0 0"></a-mixin>
+        
+         <a-mixin id="sign" geometry="primitive: plane; width: 0.6; height: 0.75" material="shader: flat; color: black;"></a-mixin>
+        
+         <a-mixin id="fade-in" animation="property: object3D.position.y; dur: 500; from: 5; to: 0; startEvents: object3dset;"></a-mixin>
+        
+         <a-mixin id="source-code-pro" text="font: https://cdn.aframe.io/fonts/SourceCodePro.fnt"></a-mixin>
+         <a-mixin id="paragraph" text="align: center; anchor: align; width: 0.5; wrapCount: 20;"></a-mixin>
+      </a-assets>
+     
+      <a-entity id="vr-player" position="0 0 0" movement-controls="camera: #vr-camera; speed: 0.25; constrainToNavMesh:false; fly: true;">
+         <a-entity id="vr-camera" position="0 1.5 0" camera="active: true;" look-controls></a-entity>
+         <a-entity id="vr-motion-controller-left" laser-controls="hand: left;" teleporter-controls="hand: left;"></a-entity>
+         <a-entity id="vr-motion-controller-right" laser-controls="hand: right;" teleporter-controls="hand: right;"
+                   event-set__abuttonup="_target: #vr-player; movement\-controls.fly: false; movement\-controls.constrainToNavMesh: true;"
+                   ></a-entity>
+      </a-entity>
+     
+      <a-entity id="coffin-instancer">
+     
+       </a-entity>
+     
+      <a-entity id="hills" class="telepad" material="shader: flat; src: #tx-hills" obj-model="obj: #md-hills" nav-mesh scale="1 0.01 1"></a-entity>
+     
+      <a-entity position="0 1.5 -1">
+         <a-entity mixin="sign"></a-entity>
+         <a-entity id="daily-deaths-usa" mixin="paragraph source-code-pro" covid-deaths-today="landscape: #hills; counter: #counter; instancer: #coffin-instancer" position=" 0 0.225 0"></a-entity>
+         <a-entity id="counter" mixin="paragraph source-code-pro" position=" 0 -0.025 0" text="value: ; wrapCount: 16;"></a-entity>
+         <a-entity id="load-msg" mixin="paragraph source-code-pro" position=" 0 0 0" text="value: Loading...; wrapCount: 16;"></a-entity>
+        
+         <a-entity id="asterisk" mixin="paragraph source-code-pro" position=" 0 -0.25 0" text="value: *Due to memory limitations,\nonly 512 are shown.; wrapCount: 32;" visible="false"></a-entity>
+      </a-entity>
+     
+   </a-scene>
+</body>
+
+</html>
