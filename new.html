@@ -2,52 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VRWiz</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script> -->
   <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
   </head>
   <body>
     <a-scene id="first">
-      <a-assets>
-        <img id="sky" src="http://i.imgur.com/WqlqEkq.jpg" alt="sky" />
-        <img
-          id="pop-growth"
-          src="https://i.imgur.com/My0ZSwA.png"
-          alt="where counties are growing"
-          crossorigin="anonymous"
-        />
+      
 
-        <img
-          src="https://i.imgur.com/Qu5R3pf.png"
-          id="censusscreenshot1"
-          alt="census"
-          crossorigin="anonymous"
-        />
-        <img
-          src="https://i.imgur.com/hzyUo20.png"
-          id="censusscreenshot2"
-          alt="census"
-          crossorigin="anonymous"
-        />
-        <img
-          src="https://i.imgur.com/V3fh1MY.png"
-          id="vrvizscreenshot"
-          alt="vr viz"
-          crossorigin="anonymous"
-        />
-        <img
-          src="https://i.imgur.com/ewjPKRu.jpg"
-          id="willsmithscreenshot"
-          alt="will smith"
-          crossorigin="anonymous"
-        />
-      </a-assets>
-
-      <a-sky src="#sky"></a-sky>
+      <a-sky color="pink"></a-sky>
       <a-plane
         height="25"
         width="30"
@@ -70,9 +35,9 @@
         height="4"
         color="#7BC8A4"
       ></a-plane>
-      <a-box hoverable grabbable stretchable draggable droppable color="blue" position="0 1 -2" scale=".5 .5 .5"></a-box>
+      <a-box hoverable grabbable  draggable droppable color="blue" position="0 1 -2" scale=".5 .5 .5"></a-box>
 
-      <a-entity id="rig" movement-controls="constrainToNavMesh: true; fly: true;">
+      <a-entity id="rig" movement-controls kinematic-body>
         <a-entity
           id="camera"
           camera
