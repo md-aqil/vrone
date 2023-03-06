@@ -69,7 +69,7 @@
         color="#7BC8A4"
       ></a-plane>
 
-      <a-entity id="rig" movement-controls>
+      <a-entity id="rig" movement-controls="constrainToNavMesh: true; fly: true;">
         <a-entity
           id="camera"
           camera
@@ -82,6 +82,7 @@
         <a-entity id="right-con" oculus-touch-controls="hand: right"></a-entity>
       </a-entity>
 
+      
       <a-link
         href="https://will-smith-sentiment-app.glitch.me/"
         image="#willsmithscreenshot"
