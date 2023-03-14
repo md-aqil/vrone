@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-Frame WebXR App for Oculus Quest</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
+</head>
+<body>
+  <a-scene vr-mode-ui="enabled: true">
+    <a-entity id="camera" camera look-controls position="0 1.6 0"></a-entity>
+    <a-entity id="left-hand" super-hands="colliderEvent: collision; colliderEventProperty: els; colliderEndEvent: collisionend; colliderEndEventProperty: els" hand-controls="left" laser-controls="hand: left" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #left-hand; button: grip" raycaster="objects: .collidable"></a-entity>
+    <a-entity id="right-hand" super-hands="colliderEvent: collision; colliderEventProperty: els; colliderEndEvent: collisionend; colliderEndEventProperty: els" hand-controls="right" laser-controls="hand: right" thumbstick-controls="move" snap-turn-controls="snapTurn" raycaster="objects: .collidable"></a-entity>
+    <a-entity id="box" class="collidable" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5" material="color: blue" position="0 1.5 -3"></a-entity>
+    <a-entity id="cameraRig" position="0 0 0">
+      <a-entity id="head" position="0 1.6 0"></a-entity>
+      <a-entity id="teleportation" position="0 0 -10"></a-entity>
+    </a-entity>
+  </a-scene>
+
+  <script>
+    AFRAME.registerComponent('move', {
+      init: function () {
+        this.el.addEventListener('axismove', function (evt) {
+          if (evt.detail.axis[1] < -0.5) {
+            this.sceneEl.querySelector('#cameraRig').object3D.translateZ(-0.05);
+          } else if (evt.detail.axis[1] > 0.5) {
+            this.sceneEl.querySelector('#cameraRig').object3D.translateZ(0.05);
+          }
+
+          if (evt.detail.axis[0] < -0.5) {
+            this.sceneEl.querySelector('#cameraRig').object3D.rotateY(0.05);
+          } else if (evt.detail.axis[0] > 0.5) {
+            this.sceneEl.querySelector('#cameraRig').object3D.rotateY(-0.05);
+          }
+        });
+      }
+    });
+
+</script>
